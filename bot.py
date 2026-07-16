@@ -34,9 +34,11 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
     )
 
 
+message = """
 🎓 FORMATION PROFITBOOK
 
-L'Académie du Trading contient 25 modules :
+L'Académie du Trading contient 25 modules.
+"""
 
 ✅ Analyse technique
 ✅ Stratégies de trading
