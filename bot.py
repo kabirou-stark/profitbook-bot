@@ -29,7 +29,7 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
     # Mets ton image dans le dépôt avec le nom image.png
     await update.message.reply_photo(
-        photo=open("image.png", "rb"),
+        photo=open("B92BD8BE-1DD1-433A-9D70-7C31B13040A2.png", "rb")
         caption=message,
         reply_markup=clavier
     )
