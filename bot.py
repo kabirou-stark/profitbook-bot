@@ -1,4 +1,4 @@
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 import os
@@ -7,26 +7,33 @@ TOKEN = os.getenv("TOKEN")
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
     message = """
-📖 Bienvenue sur ProfitBook
+📖 🚀 Bienvenue sur Trading Book Bot
 
-🎓 L'Académie du Trading
-Du Débutant au Trader Rentable
+Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
 
-Apprends le trading étape par étape avec notre formation professionnelle.
+📈 Accède à des ressources structurées, apprends les bases essentielles et découvre les bonnes pratiques pour mieux comprendre les marchés financiers.
 
-Commandes disponibles :
-/formation
-/modules
-/prix
-/acheter
+🎯 Ton parcours vers une meilleure maîtrise du trading commence maintenant.
+
+👇 Choisis ton option ci-dessous :
 """
-    await update.message.reply_text(message)
 
+    boutons = [
+        [InlineKeyboardButton("📖 Guide gratuit", callback_data="guide_gratuit")],
+        [InlineKeyboardButton("🎓 Guide complet", callback_data="guide_complet")],
+        [InlineKeyboardButton("💬 Assistance", callback_data="assistance")]
+    ]
 
-async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    clavier = InlineKeyboardMarkup(boutons)
+
     await update.message.reply_text(
-        """
+        message,
+        reply_markup=clavier
+    )
+
+
 🎓 FORMATION PROFITBOOK
 
 L'Académie du Trading contient 25 modules :
