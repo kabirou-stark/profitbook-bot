@@ -29,17 +29,11 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
     clavier = InlineKeyboardMarkup(boutons)
 
     await update.message.reply_text(
-        message,
-        reply_markup=clavier
-    )
-
-
-message = """
-FORMATION PROFITBOOK
-
-L'Académie du Trading contient 25 modules.
+    """
+📖 Bienvenue sur ProfitBook
+🎓 L'Académie du Trading
 """
-
+)
 ✅ Analyse technique
 ✅ Stratégies de trading
 ✅ Gestion du risque
