@@ -1,6 +1,5 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, ContextTypes
-
+from telegram.ext import Application, CommandHandler, ContextTypes, CallbackQueryHandler
 import os
 
 TOKEN = os.getenv("TOKEN")
@@ -17,7 +16,7 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
 🎯 Ton parcours vers une meilleure maîtrise du trading commence maintenant.
 
-👇 Choisis ton option ci-dessous :
+👇 Choisis ton option :
 """
 
     boutons = [
@@ -28,62 +27,70 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
     clavier = InlineKeyboardMarkup(boutons)
 
-    await update.message.reply_text(
-    """
-📖 Bienvenue sur ProfitBook
-🎓 L'Académie du Trading
+    # Mets ton image dans le dépôt avec le nom image.png
+    await update.message.reply_photo(
+        photo=open("image.png", "rb"),
+        caption=message,
+        reply_markup=clavier
+    )
+
+
+async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    query = update.callback_query
+    await query.answer()
+
+    if query.data == "guide_gratuit":
+        await query.message.reply_text(
+            """
+📖 GUIDE GRATUIT
+
+Découvre les bases du trading avec notre introduction gratuite.
+
+Tu apprendras :
+✅ Les bases des marchés
+✅ Les premiers concepts du trading
+✅ Les erreurs à éviter
 """
-)
+        )
+
+    elif query.data == "guide_complet":
+        await query.message.reply_text(
+            """
+🎓 GUIDE COMPLET
+
+L'Académie du Trading contient 25 modules :
+
 ✅ Analyse technique
 ✅ Stratégies de trading
 ✅ Gestion du risque
 ✅ Psychologie du trader
 ✅ Méthodes professionnelles
 
-Passe du niveau débutant à trader rentable.
+Passe du niveau débutant à une meilleure maîtrise du trading.
 """
-    )
+        )
+
+    elif query.data == "assistance":
+        await query.message.reply_text(
+            """
+💬 ASSISTANCE
+
+Besoin d'aide ?
+
+Contacte notre équipe pour toute question concernant la formation.
+"""
+        )
 
 
-async def modules(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         """
-📚 Les 25 modules ProfitBook :
+🎓 FORMATION PROFITBOOK
 
-Module 1 : Introduction au trading
-Module 2 : Les bases des marchés
-Module 3 : Lecture des graphiques
-...
-Module 25 : Devenir un trader autonome
+Formation complète en 25 modules.
 
-Formation complète disponible après inscription.
-"""
-    )
-
-
-async def prix(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        """
-💰 Prix de la formation ProfitBook :
-
-🎓 L'Académie du Trading
-Accès complet aux 25 modules.
-
-Contacte-nous pour obtenir les modalités d'inscription.
-"""
-    )
-
-
-async def acheter(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        """
-🚀 Pour acheter la formation :
-
-1️⃣ Contacte notre équipe
-2️⃣ Effectue le paiement
-3️⃣ Reçois ton accès privé à la formation
-
-Merci de rejoindre ProfitBook 📖
+Apprends le trading étape par étape.
 """
     )
 
@@ -94,9 +101,7 @@ def main():
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("formation", formation))
-    app.add_handler(CommandHandler("modules", modules))
-    app.add_handler(CommandHandler("prix", prix))
-    app.add_handler(CommandHandler("acheter", acheter))
+    app.add_handler(CallbackQueryHandler(boutons))
 
     print("Bot ProfitBook lancé")
 
