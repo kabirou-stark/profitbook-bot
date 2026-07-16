@@ -35,7 +35,7 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
 
 message = """
-🎓 FORMATION PROFITBOOK
+FORMATION PROFITBOOK
 
 L'Académie du Trading contient 25 modules.
 """
