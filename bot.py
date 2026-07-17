@@ -117,12 +117,23 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📷 Veuillez maintenant envoyer une capture d'écran de votre transaction.\n\n"
             "Après vérification, le Guide Complet ProfitBook vous sera envoyé."
         )
+elif query.data == "assistance":
 
-    elif query.data == "assistance":
+    clavier = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(
+                "💬 Contacter l'assistance",
+                url="https://t.me/@bi_kakk"
+            )
+        ]
+    ])
 
-        await query.message.reply_text(
-            "💬 Contacte notre équipe pour toute assistance."
-        )
+    await query.message.reply_text(
+        "💬 Notre équipe d'assistance est disponible.\n\n"
+        "Clique sur le bouton ci-dessous pour nous contacter.",
+        reply_markup=clavier
+    )
+    
         
 
     
