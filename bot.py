@@ -69,18 +69,42 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     if query.data == "guide_gratuit":
-        await query.message.reply_text(
-            "📖 Guide gratuit\n\nDécouvre les bases du trading."
-        )
+
+        clavier = InlineKeyboardMarkup([
+            [InlineKeyboardButton("🎓 Obtenir le guide complet", callback_data="guide_complet")]
+        ])
+
+        with open("guide_gratuit.pdf 2_compressed.pdf", "rb") as pdf:
+            await query.message.reply_document(
+                document=pdf,
+                caption="📖 Voici ton guide gratuit ! Bonne lecture.",
+                reply_markup=clavier
+            )
 
     elif query.data == "guide_complet":
+
+        clavier = InlineKeyboardMarkup([
+            [InlineKeyboardButton("💬 Assistance", callback_data="assistance")]
+        ])
+
         await query.message.reply_text(
-            "🎓 Formation ProfitBook\n\n25 modules complets de trading."
+            "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
+            "✅ 25 modules complets\n"
+            "✅ Les bases du trading\n"
+            "✅ Analyse technique\n"
+            "✅ Gestion du risque\n"
+            "✅ Psychologie du trader\n"
+            "✅ Stratégies professionnelles\n\n"
+            "Clique sur *Assistance* pour obtenir plus d'informations.",
+            parse_mode="Markdown",
+            reply_markup=clavier
         )
 
     elif query.data == "assistance":
+
         await query.message.reply_text(
-            "💬 Contacte notre équipe pour toute assistance."
+            "💬 Notre équipe est à votre disposition.\n\n"
+            "Écrivez-nous pour obtenir le guide complet ou toute autre information."
         )
 
 
