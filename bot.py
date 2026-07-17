@@ -53,7 +53,8 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-📖🚀 🚀 Bienvenue sur **Profit Book Bot**
+📖🚀 🚀 Bienvenue sur **L’Académie du Trading
+Du Débutant au Trader Rentable**
 
 Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
 
