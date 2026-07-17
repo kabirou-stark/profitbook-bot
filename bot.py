@@ -74,7 +74,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("🎓 Obtenir le guide complet", callback_data="guide_complet")]
         ])
 
-        with open("guide-gratuit.pdf", "rb") as pdf:
+        with open("guide-gratuit.pdf .pdf", "rb") as pdf:
             await query.message.reply_document(
                 document=pdf,
                 caption="📖 Voici ton guide gratuit ! Bonne lecture.",
