@@ -53,11 +53,15 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-📖🚀 Bienvenue sur ProfitBook
+📖🚀 🚀 Bienvenue sur **Profit Book Bot**
 
-Ton compagnon d'apprentissage du trading.
+Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
 
-👇 Choisis une option :
+📈 Accède à des ressources structurées, apprends les bases essentielles et découvre les bonnes pratiques pour mieux comprendre les marchés financiers.
+
+🎯 Ton parcours vers une meilleure maîtrise du trading commence maintenant.
+
+👇 Choisis ton option ci-dessous :
 """
 
 
