@@ -95,7 +95,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         clavier = InlineKeyboardMarkup([
             [
                 InlineKeyboardButton(
-                    "🎓 Acheter le guide complet",
+                    "🎓 obtenir le guide complet",
                     callback_data="guide_complet"
                 )
             ]
