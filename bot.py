@@ -74,50 +74,55 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("🎓 Obtenir le guide complet", callback_data="guide_complet")]
         ])
 
-        with open("guide-gratuit.pdf .pdf", "rb") as pdf:
+        with open("guide-gratuit.pdf.pdf", "rb") as pdf:
             await query.message.reply_document(
                 document=pdf,
                 caption="📖 Voici ton guide gratuit ! Bonne lecture.",
                 reply_markup=clavier
             )
 
- elif query.data == "guide_complet":
+    elif query.data == "guide_complet":
 
-    clavier = InlineKeyboardMarkup([
-        [InlineKeyboardButton("✅ J'ai effectué le paiement", callback_data="paiement_effectue")],
-        [InlineKeyboardButton("💬 Assistance", callback_data="assistance")]
-    ])
+        clavier = InlineKeyboardMarkup([
+            [InlineKeyboardButton("✅ J'ai effectué le paiement", callback_data="paiement_effectue")],
+            [InlineKeyboardButton("💬 Assistance", callback_data="assistance")]
+        ])
 
-    await query.message.reply_text(
-        "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
+        await query.message.reply_text(
+            "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
+            "💰 *Prix : 15 USDT*\n\n"
 
-        "💰 *Prix : 15 USDT*\n\n"
+            "📌 *Moyens de paiement Binance*\n\n"
 
-        "📌 *Moyens de paiement Binance*\n\n"
+            "🟢 *USDT (BEP20)*\n"
+            "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
 
-        "🟢 *USDT (BEP20)*\n"
-        "`<0x71da433a66bb583dc984b1888bea773c7fbc7764>`\n\n"
+            "🟡 *Bitcoin (BTC)*\n"
+            "`13V7bNc1TgwRAEc7b3h9xZUMdWaGBJ23u2`\n\n"
 
-        "🟡 *Bitcoin (BTC)*\n"
-        "`<13V7bNc1TgwRAEc7b3h9xZUMdWaGBJ23u2>`\n\n"
+            "🔵 *Ethereum (ETH)*\n"
+            "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
 
-        "🔵 *Ethereum (ETH)*\n"
-        "`<0x71da433a66bb583dc984b1888bea773c7fbc7764>`\n\n"
+            "⚠️ Après avoir effectué le paiement, cliquez sur le bouton "
+            "*✅ J'ai effectué le paiement* puis envoyez la capture d'écran de la transaction.",
 
-        "⚠️ Après avoir effectué le paiement, cliquez sur le bouton "
-        "*✅ J'ai effectué le paiement* puis envoyez la capture d'écran de la transaction.",
+            parse_mode="Markdown",
+            reply_markup=clavier
+        )
 
-        parse_mode="Markdown",
-        reply_markup=clavier
-    )
+    elif query.data == "paiement_effectue":
 
-elif query.data == "paiement_effectue":
+        await query.message.reply_text(
+            "✅ Merci pour votre paiement.\n\n"
+            "📷 Veuillez maintenant envoyer une capture d'écran de votre transaction.\n\n"
+            "Après vérification, le Guide Complet ProfitBook vous sera envoyé."
+        )
 
-    await query.message.reply_text(
-        "✅ Merci pour votre paiement.\n\n"
-        "📷 Veuillez maintenant envoyer une capture d'écran de votre transaction.\n\n"
-        "Après vérification, le Guide Complet ProfitBook vous sera envoyé."
-    )   
+    elif query.data == "assistance":
+
+        await query.message.reply_text(
+            "💬 Contacte notre équipe pour toute assistance."
+        )
         
 
     
