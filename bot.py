@@ -46,18 +46,35 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-📖🚀 Bienvenue sur **L’Académie du Trading
-Du Débutant au Trader Rentable**
+📖📖🚀 Bienvenue dans L’Académie du Trading
+Du Débutant au Trader Rentable
 
-Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
+Vous souhaitez découvrir le trading, mais vous ne savez pas par où commencer ? Ou vous avez déjà essayé d’apprendre sans obtenir de véritables résultats ?
 
-📈 Accède à des ressources structurées, apprends les bases essentielles et découvre les bonnes pratiques pour mieux comprendre les marchés financiers.
+Vous êtes au bon endroit.
 
-🎯 Ton parcours vers une meilleure maîtrise du trading commence maintenant.
+L’Académie du Trading a été conçue pour vous accompagner pas à pas, quel que soit votre niveau. Grâce à une méthode claire, progressive et structurée, vous développerez des bases solides pour mieux comprendre les marchés financiers et adopter les bonnes pratiques utilisées par les traders disciplinés.
 
-👇 Choisis ton option ci-dessous :
+📈 Ce que vous trouverez dans cette formation :
+
+✅ Un parcours complet organisé en 25 modules faciles à suivre.
+
+✅ Des explications simples et accessibles, même si vous débutez totalement.
+
+✅ Les connaissances essentielles pour comprendre le fonctionnement des marchés financiers, des graphiques et des mouvements de prix.
+
+✅ Les méthodes et outils indispensables pour analyser le marché avec plus de confiance.
+
+✅ Les principes de gestion du risque afin d’apprendre à protéger votre capital et éviter les erreurs les plus fréquentes.
+
+✅ Les bases de la psychologie du trader pour développer la discipline, la patience et une meilleure prise de décision.
+
+🎯Avec PROFITBOOK, vous progressez étape par étape, sans être submergé par des informations inutiles, afin d’acquérir les compétences essentielles pour évoluer avec méthode et confiance.
+
+🚀 Votre parcours vers une meilleure maîtrise du trading commence aujourd’hui.
+
+👇 Choisissez une option ci-dessous pour commencer votre apprentissage.
 """
-
     clavier = InlineKeyboardMarkup([
         [
             InlineKeyboardButton(
@@ -188,32 +205,49 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     # POURQUOI CHOISIR CETTE FORMATION
-    elif query.data == "pourquoi_formation":
+     elif query.data == "pourquoi_formation":
 
         await query.message.reply_text(
-            "⭐ Pourquoi choisir L’Académie du Trading ?\n\n"
+"""⭐ Pourquoi choisir L’Académie du Trading ?
 
-            "Le trading demande une méthode claire, "
-            "de la discipline et une bonne compréhension "
-            "des marchés financiers.\n\n"
+Le trading ne consiste pas à acheter et vendre au hasard. Pour progresser durablement, il faut suivre une méthode claire, comprendre le fonctionnement des marchés et développer une véritable discipline.
 
-            "📖 Avec PROFITBOOK, vous découvrez un parcours "
-            "structuré en 25 modules conçu pour apprendre "
-            "progressivement.\n\n"
+C'est exactement l'objectif de L'Académie du Trading – PROFITBOOK.
 
-            "Vous allez apprendre :\n\n"
+Notre formation a été conçue pour accompagner aussi bien les débutants que les personnes ayant déjà quelques notions, grâce à un parcours structuré de 25 modules.
 
-            "✅ Les bases essentielles du trading\n"
-            "✅ L’analyse des marchés financiers\n"
-            "✅ Les outils et méthodes d’un trader\n"
-            "✅ La gestion du risque\n"
-            "✅ La psychologie du trading\n\n"
+📖 Ce que vous allez apprendre :
 
-            "🎓 Une formation organisée pour vous aider "
-            "à comprendre le trading avec plus de clarté.",
+✅ Les fondamentaux du trading
+• Comprendre le trading.
+• Découvrir les marchés financiers.
+• Comprendre le rôle d'un trader.
 
-            reply_markup=clavier_guide
-        )
+✅ L'analyse des marchés
+• Lire les graphiques.
+• Identifier les tendances.
+• Comprendre les mouvements des prix.
+
+✅ Les outils et méthodes
+• Utiliser les plateformes de trading.
+• Découvrir les principaux indicateurs.
+• Construire un plan de trading.
+
+✅ La gestion du risque
+• Protéger son capital.
+• Gérer la taille des positions.
+• Utiliser correctement Stop Loss et Take Profit.
+
+✅ La psychologie du trader
+• Développer la discipline.
+• Contrôler les émotions.
+• Éviter les erreurs des débutants.
+
+🎯 Une formation organisée en 25 modules qui vous accompagne étape par étape pour acquérir des bases solides et comprendre les marchés financiers avec méthode.
+
+🚀 PROFITBOOK – Du Débutant au Trader Rentable.""",
+        reply_markup=clavier_guide
+    )
 
     # PROGRAMME DES 25 MODULES
     elif query.data == "programme_25":
@@ -252,8 +286,9 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "✅ Assistance disponible en cas de besoin.",
 
             reply_markup=clavier_guide
-        )
-            # ASSISTANCE
+          )
+
+    # ASSISTANCE
     elif query.data == "assistance":
 
         clavier = InlineKeyboardMarkup([
