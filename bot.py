@@ -46,22 +46,16 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-    📖📖🚀 Bienvenue dans L’Académie du Trading
+    📖📖🚀Bienvenue sur L’Académie du Trading
 Du Débutant au Trader Rentable
-L’Académie du Trading a été conçue pour vous accompagner pas à pas, quel que soit votre niveau. Grâce à une méthode claire, progressive et structurée, vous développerez des bases solides pour mieux comprendre les marchés financiers et adopter les bonnes pratiques utilisées par les traders disciplinés.
-📈 Ce que vous trouverez dans cette formation :
 
-✅ Un parcours complet organisé en 25 modules faciles à suivre.
+Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
 
-✅ Des explications simples et accessibles, même si vous débutez totalement.
+📈 Accède à des ressources structurées, apprends les bases essentielles et découvre les bonnes pratiques pour mieux comprendre les marchés financiers.
 
-✅ Les connaissances essentielles pour comprendre le fonctionnement des marchés financiers, des graphiques et des mouvements de prix.
+🎯 Ton parcours vers une meilleure maîtrise du trading commence maintenant.
 
-✅ Les méthodes et outils indispensables pour analyser le marché avec plus de confiance.
-
-🎯Avec PROFITBOOK, vous progressez étape par étape, sans être submergé par des informations inutiles, afin d’acquérir les compétences essentielles pour évoluer avec méthode et confiance.
-
-👇 Choisissez une option ci-dessous pour commencer votre apprentissage.
+👇 Choisis ton option ci-dessous :
 """
     clavier = InlineKeyboardMarkup([
         [
