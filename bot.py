@@ -376,7 +376,14 @@ def main():
         .request(request)
         .build()
     )
+import logging
 
+logging.basicConfig(level=logging.INFO)
+
+async def error_handler(update, context):
+    logging.exception("Erreur :", exc_info=context.error)
+
+application.add_error_handler(error_handler)
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("formation", formation))
     application.add_handler(CallbackQueryHandler(boutons))
@@ -387,11 +394,23 @@ def main():
     print("✅ ProfitBook Bot lancé")
 
     application.run_polling(
-        poll_interval=2,
-        timeout=30,
-        drop_pending_updates=True,
-    )
+    poll_interval=1,
+    timeout=20,
+    drop_pending_updates=True,
+    close_loop=False,
+)
 
+
+import time
+import traceback
 
 if __name__ == "__main__":
-    main()
+    while True:
+        try:
+            print("🚀 Démarrage du bot...")
+            main()
+        except Exception:
+            print("❌ Erreur détectée :")
+            traceback.print_exc()
+            print("🔄 Redémarrage dans 10 secondes...")
+            time.sleep(10)
