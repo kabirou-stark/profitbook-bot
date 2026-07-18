@@ -405,5 +405,4 @@ def main():
 if __name__ == "__main__":
     print("🚀 Démarrage du bot...")
     main()
-            print("🔄 Redémarrage dans 10 secondes...")
-            time.sleep(10)
+            
