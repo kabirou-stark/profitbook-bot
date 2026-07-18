@@ -67,12 +67,37 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
 
     clavier = InlineKeyboardMarkup([
-        [InlineKeyboardButton("📖 Guide gratuit", callback_data="guide_gratuit")],
-        [InlineKeyboardButton("🎓 Guide complet", callback_data="guide_complet")],
-        [InlineKeyboardButton("💬 Assistance", callback_data="assistance")]
-    ])
-
-
+    [
+        InlineKeyboardButton(
+            "📖 Guide gratuit",
+            callback_data="guide_gratuit"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "🎓 Guide complet",
+            callback_data="guide_complet"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "📚 Voir le programme des 25 modules",
+            callback_data="programme_25"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "⭐ Pourquoi choisir cette formation ?",
+            callback_data="pourquoi_formation"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "💬 Assistance",
+            callback_data="assistance"
+        )
+    ]
+])
     with open("B92BD8BE-1DD1-433A-9D70-7C31B13040A2.png", "rb") as photo:
 
         await update.message.reply_photo(
@@ -121,19 +146,31 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "guide_complet":
 
         clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "✅ J'ai effectué le paiement",
-                    callback_data="paiement_effectue"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "💬 Assistance",
-                    callback_data="assistance"
-                )
-            ]
-        ])
+    [
+        InlineKeyboardButton(
+            "✅ J'ai effectué le paiement",
+            callback_data="paiement_effectue"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "📚 Voir le programme des 25 modules",
+            callback_data="programme_25"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "🔒 Paiement sécurisé",
+            callback_data="paiement_securise"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            "💬 Assistance",
+            callback_data="assistance"
+        )
+    ]
+])
 
 
         await query.message.reply_text(
@@ -171,8 +208,116 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Après vérification, votre guide complet sera envoyé."
         )
 
+    # POURQUOI CHOISIR CETTE FORMATION
+    elif query.data == "pourquoi_formation":
 
+        await query.message.reply_text(
 
+            "⭐ Pourquoi choisir L’Académie du Trading ?\n\n"
+
+            "Le trading demande une méthode claire, "
+            "de la discipline et une bonne compréhension "
+            "des marchés financiers.\n\n"
+
+            "📖 Avec PROFITBOOK, vous découvrez un parcours "
+            "structuré en 25 modules conçu pour apprendre "
+            "progressivement.\n\n"
+
+            "Vous allez apprendre :\n\n"
+
+            "✅ Les bases essentielles du trading\n"
+            "✅ L’analyse des marchés financiers\n"
+            "✅ Les outils et méthodes d’un trader\n"
+            "✅ La gestion du risque\n"
+            "✅ La psychologie du trading\n\n"
+
+            "🎓 Une formation organisée pour vous aider "
+            "à comprendre le trading avec plus de clarté.\n\n"
+
+            "📖 L’Académie du Trading\n"
+            "Du Débutant au Trader Rentable"
+        )
+    # PROGRAMME DES 25 MODULES
+    elif query.data == "programme_25":
+
+        await query.message.reply_text(
+
+            "📚 PROGRAMME COMPLET\n"
+            "🎓 L’ACADÉMIE DU TRADING\n\n"
+
+            "Un parcours structuré de 25 modules "
+            "pour passer de débutant à trader avec "
+            "de meilleures bases.\n\n"
+
+            "━━━━━━━━━━━━━━\n"
+
+            "📖 MODULE 1 : Les fondamentaux du trading\n"
+            "• Comprendre le trading\n"
+            "• Les marchés financiers\n"
+            "• Le rôle d’un trader\n\n"
+
+            "📖 MODULE 2 : Découverte des marchés\n"
+            "• Forex, Crypto, Actions et indices\n"
+            "• Fonctionnement des marchés\n\n"
+
+            "📖 MODULE 3 : Les plateformes de trading\n"
+            "• Choisir son environnement\n"
+            "• Utiliser les outils essentiels\n\n"
+
+            "📖 MODULE 4 : Analyse technique\n"
+            "• Lire un graphique\n"
+            "• Supports et résistances\n\n"
+
+            "📖 MODULE 5 : Les indicateurs techniques\n"
+            "• RSI, moyennes mobiles, tendances\n\n"
+
+            "📖 MODULE 6 : Les stratégies de trading\n"
+            "• Construire un plan de trading\n\n"
+
+            "📖 MODULE 7 : Gestion du risque\n"
+            "• Protéger son capital\n"
+            "• Taille des positions\n\n"
+
+            "📖 MODULE 8 : Psychologie du trader\n"
+            "• Discipline et émotions\n\n"
+
+            "📖 MODULE 9 à 15 :\n"
+            "• Méthodes d’analyse avancées\n"
+            "• Price Action\n"
+            "• Gestion des entrées et sorties\n"
+            "• Optimisation des stratégies\n\n"
+
+            "📖 MODULE 16 à 20 :\n"
+            "• Création d’un plan professionnel\n"
+            "• Analyse complète des marchés\n"
+            "• Amélioration des performances\n\n"
+
+            "📖 MODULE 21 à 25 :\n"
+            "• Niveau avancé\n"
+            "• Organisation d’un trader sérieux\n"
+            "• Mise en pratique finale\n\n"
+
+            "━━━━━━━━━━━━━━\n"
+
+            "🚀 L’Académie du Trading\n"
+            "📖 PROFITBOOK\n"
+            "Du Débutant au Trader Rentable"
+        )
+    # PAIEMENT SÉCURISÉ
+    elif query.data == "paiement_securise":
+
+        await query.message.reply_text(
+    "🔒 PAIEMENT SÉCURISÉ\n\n"
+
+    "Votre sécurité est notre priorité.\n\n"
+
+    "✅ Les paiements sont vérifiés avant la livraison de votre guide.\n"
+    "✅ Vos informations personnelles restent confidentielles.\n"
+    "✅ Votre guide est envoyé uniquement après validation du paiement.\n"
+    "✅ En cas de difficulté, notre assistance est disponible pour vous accompagner.\n\n"
+
+    "🎓 Achetez en toute confiance et commencez votre apprentissage avec L'Académie du Trading."
+)
     # ASSISTANCE
     elif query.data == "assistance":
 
