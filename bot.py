@@ -402,16 +402,8 @@ def main():
     )
 
 
-import time
-import traceback
-
 if __name__ == "__main__":
-    while True:
-        try:
-            print("🚀 Démarrage du bot...")
-            main()
-        except Exception:
-            print("❌ Erreur détectée :")
-            traceback.print_exc()
+    print("🚀 Démarrage du bot...")
+    main()
             print("🔄 Redémarrage dans 10 secondes...")
             time.sleep(10)
