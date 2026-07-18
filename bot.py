@@ -65,10 +65,6 @@ L’Académie du Trading a été conçue pour vous accompagner pas à pas, quel 
 
 ✅ Les méthodes et outils indispensables pour analyser le marché avec plus de confiance.
 
-✅ Les principes de gestion du risque afin d’apprendre à protéger votre capital et éviter les erreurs les plus fréquentes.
-
-✅ Les bases de la psychologie du trader pour développer la discipline, la patience et une meilleure prise de décision.
-
 🎯Avec PROFITBOOK, vous progressez étape par étape, sans être submergé par des informations inutiles, afin d’acquérir les compétences essentielles pour évoluer avec méthode et confiance.
 
 🚀 Votre parcours vers une meilleure maîtrise du trading commence aujourd’hui.
