@@ -361,7 +361,21 @@ def main():
 
     Thread(target=run_web, daemon=True).start()
 
-    application = Application.builder().token(TOKEN).build()
+    from telegram.request import HTTPXRequest
+
+    request = HTTPXRequest(
+        connect_timeout=30,
+        read_timeout=60,
+        write_timeout=60,
+        pool_timeout=30,
+    )
+
+    application = (
+        Application.builder()
+        .token(TOKEN)
+        .request(request)
+        .build()
+    )
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("formation", formation))
@@ -372,7 +386,11 @@ def main():
 
     print("✅ ProfitBook Bot lancé")
 
-    application.run_polling()
+    application.run_polling(
+        poll_interval=2,
+        timeout=30,
+        drop_pending_updates=True,
+    )
 
 
 if __name__ == "__main__":
