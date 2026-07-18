@@ -46,7 +46,7 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-📖📖🚀 Bienvenue dans L’Académie du Trading
+    📖📖🚀 Bienvenue dans L’Académie du Trading
 Du Débutant au Trader Rentable
 
 Vous souhaitez découvrir le trading, mais vous ne savez pas par où commencer ? Ou vous avez déjà essayé d’apprendre sans obtenir de véritables résultats ?
@@ -135,7 +135,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     ])
 
-    # GUIDE GRATUIT
+           # GUIDE GRATUIT
     if query.data == "guide_gratuit":
 
         with open("guide-gratuit.pdf .pdf", "rb") as pdf:
@@ -144,7 +144,8 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 caption="📖 Voici ton guide gratuit.",
                 reply_markup=clavier_guide
             )
-                # GUIDE COMPLET
+
+       # GUIDE GRATUIT
     elif query.data == "guide_complet":
 
         clavier = InlineKeyboardMarkup([
@@ -177,22 +178,16 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(
             "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
             "💰 Prix : 15 USDT\n\n"
-
             "🟢 USDT (BEP20)\n"
             "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
-
             "🟡 Bitcoin (BTC)\n"
             "`13V7bNc1TgwRAEc7b3h9xZUMdWaGBJ23u2`\n\n"
-
             "🔵 Ethereum (ETH)\n"
             "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
-
             "Après paiement, clique sur le bouton ci-dessous puis envoie la capture.",
-
             parse_mode="Markdown",
             reply_markup=clavier
         )
-
     # CLIENT A PAYE
     elif query.data == "paiement_effectue":
 
@@ -204,11 +199,11 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Après vérification, votre guide complet sera envoyé."
         )
 
-    # POURQUOI CHOISIR CETTE FORMATION
-     elif query.data == "pourquoi_formation":
+        # POURQUOI CHOISIR CETTE FORMATION
+    elif query.data == "pourquoi_formation":
 
         await query.message.reply_text(
-"""⭐ Pourquoi choisir L’Académie du Trading ?
+            """⭐ Pourquoi choisir L’Académie du Trading ?
 
 Le trading ne consiste pas à acheter et vendre au hasard. Pour progresser durablement, il faut suivre une méthode claire, comprendre le fonctionnement des marchés et développer une véritable discipline.
 
@@ -245,18 +240,17 @@ Notre formation a été conçue pour accompagner aussi bien les débutants que l
 
 🎯 Une formation organisée en 25 modules qui vous accompagne étape par étape pour acquérir des bases solides et comprendre les marchés financiers avec méthode.
 
-🚀 PROFITBOOK – Du Débutant au Trader Rentable.""",
-        reply_markup=clavier_guide
-    )
+🚀 PROFITBOOK – Du Débutant au Trader Rentable.
+""",
+            reply_markup=clavier_guide
+        )
 
     # PROGRAMME DES 25 MODULES
     elif query.data == "programme_25":
 
         await query.message.reply_text(
-
             "📚 PROGRAMME COMPLET\n"
             "🎓 L’ACADÉMIE DU TRADING\n\n"
-
             "📖 Module 1 : Les fondamentaux du trading\n"
             "📖 Module 2 : Découverte des marchés\n"
             "📖 Module 3 : Les plateformes de trading\n"
@@ -268,7 +262,6 @@ Notre formation a été conçue pour accompagner aussi bien les débutants que l
             "📖 Modules 9 à 15 : Analyse avancée\n"
             "📖 Modules 16 à 20 : Plan professionnel\n"
             "📖 Modules 21 à 25 : Niveau avancé",
-
             reply_markup=clavier_guide
         )
 
@@ -277,16 +270,13 @@ Notre formation a été conçue pour accompagner aussi bien les débutants que l
 
         await query.message.reply_text(
             "🔒 PAIEMENT SÉCURISÉ\n\n"
-
             "Votre sécurité est notre priorité.\n\n"
-
             "✅ Les paiements sont vérifiés avant la livraison.\n"
             "✅ Vos informations restent confidentielles.\n"
             "✅ Le guide est envoyé uniquement après validation.\n"
             "✅ Assistance disponible en cas de besoin.",
-
             reply_markup=clavier_guide
-          )
+        )
 
     # ASSISTANCE
     elif query.data == "assistance":
@@ -304,7 +294,6 @@ Notre formation a été conçue pour accompagner aussi bien les débutants que l
             "💬 Contactez notre assistance.",
             reply_markup=clavier
         )
-
     # VALIDATION ADMIN
     elif query.data.startswith("valider_"):
 
