@@ -362,6 +362,9 @@ def main():
     Thread(target=run_web, daemon=True).start()
 
     from telegram.request import HTTPXRequest
+    import logging
+
+    logging.basicConfig(level=logging.INFO)
 
     request = HTTPXRequest(
         connect_timeout=30,
@@ -376,14 +379,12 @@ def main():
         .request(request)
         .build()
     )
-import logging
 
-logging.basicConfig(level=logging.INFO)
+    async def error_handler(update, context):
+        logging.exception("Erreur :", exc_info=context.error)
 
-async def error_handler(update, context):
-    logging.exception("Erreur :", exc_info=context.error)
+    application.add_error_handler(error_handler)
 
-application.add_error_handler(error_handler)
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("formation", formation))
     application.add_handler(CallbackQueryHandler(boutons))
@@ -394,11 +395,11 @@ application.add_error_handler(error_handler)
     print("✅ ProfitBook Bot lancé")
 
     application.run_polling(
-    poll_interval=1,
-    timeout=20,
-    drop_pending_updates=True,
-    close_loop=False,
-)
+        poll_interval=1,
+        timeout=20,
+        drop_pending_updates=True,
+        close_loop=False,
+    )
 
 
 import time
