@@ -121,7 +121,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # GUIDE GRATUIT
     if query.data == "guide_gratuit":
 
-        with open("guide-gratuit.pdf.pdf", "rb") as pdf:
+        with open("guide-gratuit.pdf .pdf", "rb") as pdf:
             await query.message.reply_document(
                 document=pdf,
                 caption="📖 Voici ton guide gratuit.",
