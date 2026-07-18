@@ -48,13 +48,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = """
     📖📖🚀 Bienvenue dans L’Académie du Trading
 Du Débutant au Trader Rentable
-
-Vous souhaitez découvrir le trading, mais vous ne savez pas par où commencer ? Ou vous avez déjà essayé d’apprendre sans obtenir de véritables résultats ?
-
-Vous êtes au bon endroit.
-
 L’Académie du Trading a été conçue pour vous accompagner pas à pas, quel que soit votre niveau. Grâce à une méthode claire, progressive et structurée, vous développerez des bases solides pour mieux comprendre les marchés financiers et adopter les bonnes pratiques utilisées par les traders disciplinés.
-
 📈 Ce que vous trouverez dans cette formation :
 
 ✅ Un parcours complet organisé en 25 modules faciles à suivre.
@@ -66,8 +60,6 @@ L’Académie du Trading a été conçue pour vous accompagner pas à pas, quel 
 ✅ Les méthodes et outils indispensables pour analyser le marché avec plus de confiance.
 
 🎯Avec PROFITBOOK, vous progressez étape par étape, sans être submergé par des informations inutiles, afin d’acquérir les compétences essentielles pour évoluer avec méthode et confiance.
-
-🚀 Votre parcours vers une meilleure maîtrise du trading commence aujourd’hui.
 
 👇 Choisissez une option ci-dessous pour commencer votre apprentissage.
 """
