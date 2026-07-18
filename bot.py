@@ -117,7 +117,14 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-
+clavier_guide = InlineKeyboardMarkup([
+    [
+        InlineKeyboardButton(
+            "🎓 Obtenir le Guide Complet",
+            callback_data="guide_complet"
+        )
+    ]
+])
 
     # GUIDE GRATUIT
     if query.data == "guide_gratuit":
@@ -241,6 +248,8 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "programme_25":
 
         await query.message.reply_text(
+ 
+)
 
             "📚 PROGRAMME COMPLET\n"
             "🎓 L’ACADÉMIE DU TRADING\n\n"
@@ -303,21 +312,19 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📖 PROFITBOOK\n"
             "Du Débutant au Trader Rentable"
         )
-    # PAIEMENT SÉCURISÉ
-    elif query.data == "paiement_securise":
+# PAIEMENT SÉCURISÉ
+elif query.data == "paiement_securise":
 
-        await query.message.reply_text(
-    "🔒 PAIEMENT SÉCURISÉ\n\n"
-
-    "Votre sécurité est notre priorité.\n\n"
-
-    "✅ Les paiements sont vérifiés avant la livraison de votre guide.\n"
-    "✅ Vos informations personnelles restent confidentielles.\n"
-    "✅ Votre guide est envoyé uniquement après validation du paiement.\n"
-    "✅ En cas de difficulté, notre assistance est disponible pour vous accompagner.\n\n"
-
-    "🎓 Achetez en toute confiance et commencez votre apprentissage avec L'Académie du Trading."
-)
+    await query.message.reply_text(
+        "🔒 PAIEMENT SÉCURISÉ\n\n"
+        "Votre sécurité est notre priorité.\n\n"
+        "✅ Les paiements sont vérifiés avant la livraison de votre guide.\n"
+        "✅ Vos informations personnelles restent confidentielles.\n"
+        "✅ Votre guide est envoyé uniquement après validation du paiement.\n"
+        "✅ En cas de difficulté, notre assistance est disponible.\n\n"
+        "🎓 Achetez en toute confiance.",
+        reply_markup=clavier_guide
+    )
     # ASSISTANCE
     elif query.data == "assistance":
 
