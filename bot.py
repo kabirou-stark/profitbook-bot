@@ -117,7 +117,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     ])
 
-           # GUIDE GRATUIT
+    # GUIDE GRATUIT
     if query.data == "guide_gratuit":
 
         with open("guide-gratuit.pdf .pdf", "rb") as pdf:
@@ -127,7 +127,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 reply_markup=clavier_guide
             )
 
-       # GUIDE GRATUIT
+    # GUIDE COMPLET
     elif query.data == "guide_complet":
 
         clavier = InlineKeyboardMarkup([
@@ -151,6 +151,12 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ],
             [
                 InlineKeyboardButton(
+                    "📢 Rejoindre notre canal Telegram",
+                    callback_data="canal_telegram"
+                )
+            ],
+            [
+                InlineKeyboardButton(
                     "💬 Assistance",
                     callback_data="assistance"
                 )
@@ -170,6 +176,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown",
             reply_markup=clavier
         )
+
     # CLIENT A PAYE
     elif query.data == "paiement_effectue":
 
@@ -181,53 +188,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Après vérification, votre guide complet sera envoyé."
         )
 
-        # POURQUOI CHOISIR CETTE FORMATION
-    elif query.data == "pourquoi_formation":
-
-        await query.message.reply_text(
-            """⭐ Pourquoi choisir L’Académie du Trading ?
-
-Le trading ne consiste pas à acheter et vendre au hasard. Pour progresser durablement, il faut suivre une méthode claire, comprendre le fonctionnement des marchés et développer une véritable discipline.
-
-C'est exactement l'objectif de L'Académie du Trading – PROFITBOOK.
-
-Notre formation a été conçue pour accompagner aussi bien les débutants que les personnes ayant déjà quelques notions, grâce à un parcours structuré de 25 modules.
-
-📖 Ce que vous allez apprendre :
-
-✅ Les fondamentaux du trading
-• Comprendre le trading.
-• Découvrir les marchés financiers.
-• Comprendre le rôle d'un trader.
-
-✅ L'analyse des marchés
-• Lire les graphiques.
-• Identifier les tendances.
-• Comprendre les mouvements des prix.
-
-✅ Les outils et méthodes
-• Utiliser les plateformes de trading.
-• Découvrir les principaux indicateurs.
-• Construire un plan de trading.
-
-✅ La gestion du risque
-• Protéger son capital.
-• Gérer la taille des positions.
-• Utiliser correctement Stop Loss et Take Profit.
-
-✅ La psychologie du trader
-• Développer la discipline.
-• Contrôler les émotions.
-• Éviter les erreurs des débutants.
-
-🎯 Une formation organisée en 25 modules qui vous accompagne étape par étape pour acquérir des bases solides et comprendre les marchés financiers avec méthode.
-
-🚀 PROFITBOOK – Du Débutant au Trader Rentable.
-""",
-            reply_markup=clavier_guide
-        )
-
-    # PROGRAMME DES 25 MODULES
+    # PROGRAMME 25 MODULES
     elif query.data == "programme_25":
 
         await query.message.reply_text(
@@ -247,15 +208,46 @@ Notre formation a été conçue pour accompagner aussi bien les débutants que l
             reply_markup=clavier_guide
         )
 
+    # CANAL TELEGRAM
+    elif query.data == "canal_telegram":
+
+        clavier = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(
+                    "📢 Rejoindre le canal",
+                    url="https://t.me/academie_trading_pro"
+                )
+            ]
+        ])
+
+        await query.message.reply_text(
+            "📈 Rejoignez notre canal Telegram pour recevoir :\n\n"
+            "✅ Des analyses du marché\n"
+            "✅ Des cours de trading\n"
+            "✅ Des vidéos éducatives\n"
+            "✅ Des prises de position\n"
+            "✅ Des conseils réguliers\n\n"
+            "Cliquez sur le bouton ci-dessous.",
+            reply_markup=clavier
+        )
+
+    # POURQUOI CHOISIR LA FORMATION
+    elif query.data == "pourquoi_formation":
+
+        await query.message.reply_text(
+            "⭐ Pourquoi choisir L’Académie du Trading ?\n\n"
+            "Une méthode structurée pour comprendre les marchés, "
+            "développer la discipline et progresser étape par étape.",
+            reply_markup=clavier_guide
+        )
+
     # PAIEMENT SÉCURISÉ
     elif query.data == "paiement_securise":
 
         await query.message.reply_text(
             "🔒 PAIEMENT SÉCURISÉ\n\n"
-            "Votre sécurité est notre priorité.\n\n"
             "✅ Les paiements sont vérifiés avant la livraison.\n"
             "✅ Vos informations restent confidentielles.\n"
-            "✅ Le guide est envoyé uniquement après validation.\n"
             "✅ Assistance disponible en cas de besoin.",
             reply_markup=clavier_guide
         )
