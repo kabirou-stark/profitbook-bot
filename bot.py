@@ -12,6 +12,7 @@ from telegram.ext import (
     filters,
 )
 
+
 # ==========================
 # CONFIGURATION
 # ==========================
@@ -21,9 +22,11 @@ TOKEN = os.getenv("TOKEN")
 if not TOKEN:
     raise ValueError("La variable d'environnement TOKEN est introuvable.")
 
+
 ADMIN_ID = 5269002026
 
 utilisateurs_en_attente = set()
+
 
 # ==========================
 # FLASK RENDER
@@ -31,13 +34,17 @@ utilisateurs_en_attente = set()
 
 web = Flask(__name__)
 
+
 @web.route("/")
 def home():
     return "ProfitBook Bot est en ligne !"
 
+
 def run_web():
     port = int(os.environ.get("PORT", 10000))
     web.run(host="0.0.0.0", port=port)
+
+
 
 # ==========================
 # START
@@ -46,7 +53,7 @@ def run_web():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = """
-    📖📖🚀Bienvenue sur L’Académie du Trading
+📖📖🚀 Bienvenue sur L’Académie du Trading
 Du Débutant au Trader Rentable
 
 Ton compagnon d’apprentissage pour découvrir le trading et développer tes connaissances étape par étape.
@@ -57,6 +64,8 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 
 👇 Choisis ton option ci-dessous :
 """
+
+
     clavier = InlineKeyboardMarkup([
         [
             InlineKeyboardButton(
@@ -90,12 +99,13 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
         ]
     ])
 
+
     with open("B92BD8BE-1DD1-433A-9D70-7C31B13040A2.png", "rb") as photo:
+
         await update.message.reply_photo(
             photo=photo,
             caption=message,
-            reply_markup=clavier,
-            parse_mode="Markdown"
+            reply_markup=clavier
         )
 
 
@@ -107,6 +117,7 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
 async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     query = update.callback_query
+
     await query.answer()
 
 
@@ -120,9 +131,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
 
-    # ==========================
     # GUIDE GRATUIT
-    # ==========================
 
     if query.data == "guide_gratuit":
 
@@ -135,9 +144,8 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
 
-    # ==========================
+
     # GUIDE COMPLET
-    # ==========================
 
     elif query.data == "guide_complet":
 
@@ -190,9 +198,8 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
-    # ==========================
+
     # PROGRAMME 12 MODULES
-    # ==========================
 
     elif query.data == "programme_12":
 
@@ -203,21 +210,9 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
 
-        clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "🎓 Obtenir le Guide Complet",
-                    callback_data="guide_complet"
-                )
-            ]
-        ])
-
-
         await query.message.reply_text(
             "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
-
-            "✨ *Cette formation premium est répartie sur 126 pages soigneusement élaborées.*\n\n"
-
+            "✨ Formation premium répartie sur 126 pages.\n\n"
             "📖 Module 1 : Bases du trading\n"
             "🕯️ Module 2 : Chandeliers japonais\n"
             "📈 Module 3 : Figures de retournement\n"
@@ -230,13 +225,10 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📝 Module 10 : Plan de trading\n"
             "🛡️ Module 11 : Gestion du risque & Psychologie\n"
             "🚀 Module 12 : Cas pratiques & Progression",
-
             parse_mode="Markdown",
-            reply_markup=clavier
+            reply_markup=clavier_guide
         )
-
-
-    # ==========================
+            # ==========================
     # PAIEMENT EFFECTUÉ
     # ==========================
 
@@ -246,12 +238,12 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             query.from_user.id
         )
 
-
         await query.message.reply_text(
             "✅ Parfait.\n\n"
             "Envoyez maintenant votre capture de paiement.\n\n"
             "Votre paiement sera vérifié par notre équipe avant l'envoi du Guide Complet ProfitBook 📖"
         )
+
 
 
     # ==========================
@@ -280,12 +272,10 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
+
     # ==========================
     # POURQUOI CHOISIR LA FORMATION
     # ==========================
-        
-
-  
 
     elif query.data == "pourquoi_formation":
 
@@ -295,6 +285,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "développer la discipline et progresser étape par étape.",
             reply_markup=clavier_guide
         )
+
 
 
     # ==========================
@@ -312,6 +303,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
+
     # ==========================
     # ASSISTANCE
     # ==========================
@@ -327,62 +319,65 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]
         ])
 
-
         await query.message.reply_text(
             "💬 Contactez notre assistance.",
             reply_markup=clavier
         )
-# ==========================
-# VALIDATION ADMIN
-# ==========================
 
-elif query.data.startswith("valider_"):
 
-    user_id = int(
-        query.data.split("_")[1]
-    )
 
-    with open("Guide complet.pdf", "rb") as pdf:
+    # ==========================
+    # VALIDATION ADMIN
+    # ==========================
 
-        await context.bot.send_document(
+    elif query.data.startswith("valider_"):
+
+        user_id = int(query.data.split("_")[1])
+
+        with open("Guide complet.pdf", "rb") as pdf:
+
+            await context.bot.send_document(
+                chat_id=user_id,
+                document=pdf,
+                caption=(
+                    "🎓 Merci pour votre confiance.\n\n"
+                    "Voici votre Guide Complet ProfitBook 📖"
+                )
+            )
+
+        await query.message.reply_text(
+            "✅ Guide envoyé au client."
+        )
+
+        utilisateurs_en_attente.discard(user_id)
+
+
+
+    # ==========================
+    # REFUS ADMIN
+    # ==========================
+
+    elif query.data.startswith("refuser_"):
+
+        user_id = int(query.data.split("_")[1])
+
+        await context.bot.send_message(
             chat_id=user_id,
-            document=pdf,
-            caption=(
-                "🎓 Merci pour votre confiance.\n\n"
-                "Voici votre Guide Complet ProfitBook 📖"
+            text=(
+                "❌ Votre preuve de paiement n'a pas été validée.\n\n"
+                "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
             )
         )
 
-    await query.message.reply_text(
-        "✅ Guide envoyé au client."
-    )
-
-    utilisateurs_en_attente.discard(user_id)
-
-
-# ==========================
-# REFUS ADMIN
-# ==========================
-
-elif query.data.startswith("refuser_"):
-
-    user_id = int(
-        query.data.split("_")[1]
-    )
-
-    await context.bot.send_message(
-        chat_id=user_id,
-        text=(
-            "❌ Votre preuve de paiement n'a pas été validée.\n\n"
-            "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
+        await query.message.reply_text(
+            "❌ Paiement refusé au client."
         )
-    )
 
-    await query.message.reply_text(
-        "❌ Paiement refusé au client."
-    )
+        utilisateurs_en_attente.discard(user_id)
 
-    utilisateurs_en_attente.discard(user_id)
+
+
+
 
 # ==========================
 # RECEPTION CAPTURE PAIEMENT
@@ -434,15 +429,12 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-
     await update.message.reply_text(
         "✅ Capture reçue.\n\n"
         "Votre paiement sera vérifié par l'administration."
     )
 
 
-
-    utilisateurs_en_attente.remove(user_id)
 
 
 
@@ -456,6 +448,8 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎓 Formation ProfitBook\n\n"
         "25 modules de trading."
     )
+
+
 
 
 
@@ -545,6 +539,8 @@ def main():
         drop_pending_updates=True,
         close_loop=False,
     )
+
+
 
 
 
