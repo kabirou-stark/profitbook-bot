@@ -203,7 +203,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "programme_12":
 
-        with open("programme-12-modules.jpg", "rb") as photo:
+        with open("programme-12-modules.PNG", "rb") as photo:
 
             await query.message.reply_photo(
                 photo=photo
