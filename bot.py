@@ -199,35 +199,45 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
+    # ==========================
     # PROGRAMME 12 MODULES
+    # ==========================
 
     elif query.data == "programme_12":
 
+        clavier = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(
+                    "🎓 Obtenir le Guide Complet",
+                    callback_data="guide_complet"
+                )
+            ]
+        ])
+
+
         with open("programme-12-modules.PNG", "rb") as photo:
 
-    await query.message.reply_photo(
-        photo=photo,
-        caption=(
-            "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
-
-            "✨ Cette formation premium est répartie sur 126 pages soigneusement élaborées.\n\n"
-
-            "📖 Module 1 : Bases du trading\n"
-            "🕯️ Module 2 : Chandeliers japonais\n"
-            "📈 Module 3 : Figures de retournement\n"
-            "📊 Module 4 : Figures de continuation\n"
-            "📍 Module 5 : Supports & Résistances\n"
-            "📉 Module 6 : Tendances & Timeframes\n"
-            "💹 Module 7 : Price Action\n"
-            "🎯 Module 8 : Stratégies de trading\n"
-            "⚡ Module 9 : Confluences & Fibonacci\n"
-            "📝 Module 10 : Plan de trading\n"
-            "🛡️ Module 11 : Gestion du risque & Psychologie\n"
-            "🚀 Module 12 : Cas pratiques & Progression"
-        ),
-        parse_mode="Markdown",
-        reply_markup=clavier_guide
-    )
+            await query.message.reply_photo(
+                photo=photo,
+                caption=(
+                    "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
+                    "✨ Cette formation premium est répartie sur 126 pages soigneusement élaborées.\n\n"
+                    "📖 Module 1 : Bases du trading\n"
+                    "🕯️ Module 2 : Chandeliers japonais\n"
+                    "📈 Module 3 : Figures de retournement\n"
+                    "📊 Module 4 : Figures de continuation\n"
+                    "📍 Module 5 : Supports & Résistances\n"
+                    "📉 Module 6 : Tendances & Timeframes\n"
+                    "💹 Module 7 : Price Action\n"
+                    "🎯 Module 8 : Stratégies de trading\n"
+                    "⚡ Module 9 : Confluences & Fibonacci\n"
+                    "📝 Module 10 : Plan de trading\n"
+                    "🛡️ Module 11 : Gestion du risque & Psychologie\n"
+                    "🚀 Module 12 : Cas pratiques & Progression"
+                ),
+                parse_mode="Markdown",
+                reply_markup=clavier
+            )
     # ==========================
     # PAIEMENT EFFECTUÉ
     # ==========================
