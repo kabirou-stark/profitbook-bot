@@ -99,6 +99,13 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
         )
 
 # ==========================
+# VARIABLES
+# ==========================
+
+utilisateurs_en_attente = set()
+
+
+# ==========================
 # BOUTONS
 # ==========================
 
@@ -107,7 +114,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    # Bouton réutilisable
+
     clavier_guide = InlineKeyboardMarkup([
         [
             InlineKeyboardButton(
@@ -117,17 +124,26 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     ])
 
+
+    # ==========================
     # GUIDE GRATUIT
+    # ==========================
+
     if query.data == "guide_gratuit":
 
-        with open("guide-gratuit.pdf .pdf", "rb") as pdf:
+        with open("guide-gratuit.pdf.pdf", "rb") as pdf:
+
             await query.message.reply_document(
                 document=pdf,
                 caption="📖 Voici ton guide gratuit.",
                 reply_markup=clavier_guide
             )
 
+
+    # ==========================
     # GUIDE COMPLET
+    # ==========================
+
     elif query.data == "guide_complet":
 
         clavier = InlineKeyboardMarkup([
@@ -139,8 +155,8 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ],
             [
                 InlineKeyboardButton(
-                    "📚 Voir le programme des 25 modules",
-                    callback_data="programme_25"
+                    "📚 Voir le programme des 12 modules",
+                    callback_data="programme_12"
                 )
             ],
             [
@@ -163,6 +179,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]
         ])
 
+
         await query.message.reply_text(
             "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
             "💰 Prix : 15 USDT\n\n"
@@ -177,38 +194,75 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=clavier
         )
 
-    # CLIENT A PAYE
+
+    # ==========================
+    # PROGRAMME 12 MODULES
+    # ==========================
+
+    elif query.data == "programme_12":
+
+        with open("programme-12-modules.jpg", "rb") as photo:
+
+            await query.message.reply_photo(
+                photo=photo
+            )
+
+
+        clavier = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(
+                    "🎓 Obtenir le Guide Complet",
+                    callback_data="guide_complet"
+                )
+            ]
+        ])
+
+
+        await query.message.reply_text(
+            "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
+
+            "✨ *Cette formation premium est répartie sur 126 pages soigneusement élaborées.*\n\n"
+
+            "📖 Module 1 : Bases du trading\n"
+            "🕯️ Module 2 : Chandeliers japonais\n"
+            "📈 Module 3 : Figures de retournement\n"
+            "📊 Module 4 : Figures de continuation\n"
+            "📍 Module 5 : Supports & Résistances\n"
+            "📉 Module 6 : Tendances & Timeframes\n"
+            "💹 Module 7 : Price Action\n"
+            "🎯 Module 8 : Stratégies de trading\n"
+            "⚡ Module 9 : Confluences & Fibonacci\n"
+            "📝 Module 10 : Plan de trading\n"
+            "🛡️ Module 11 : Gestion du risque & Psychologie\n"
+            "🚀 Module 12 : Cas pratiques & Progression",
+
+            parse_mode="Markdown",
+            reply_markup=clavier
+        )
+
+
+    # ==========================
+    # PAIEMENT EFFECTUÉ
+    # ==========================
+
     elif query.data == "paiement_effectue":
 
-        utilisateurs_en_attente.add(query.from_user.id)
-
-        await query.message.reply_text(
-            "✅ Merci pour votre paiement.\n\n"
-            "📷 Envoyez maintenant la capture de votre transaction.\n\n"
-            "Après vérification, votre guide complet sera envoyé."
+        utilisateurs_en_attente.add(
+            query.from_user.id
         )
 
-    # PROGRAMME 25 MODULES
-    elif query.data == "programme_25":
 
         await query.message.reply_text(
-            "📚 PROGRAMME COMPLET\n"
-            "🎓 L’ACADÉMIE DU TRADING\n\n"
-            "📖 Module 1 : Les fondamentaux du trading\n"
-            "📖 Module 2 : Découverte des marchés\n"
-            "📖 Module 3 : Les plateformes de trading\n"
-            "📖 Module 4 : Analyse technique\n"
-            "📖 Module 5 : Les indicateurs techniques\n"
-            "📖 Module 6 : Les stratégies de trading\n"
-            "📖 Module 7 : Gestion du risque\n"
-            "📖 Module 8 : Psychologie du trader\n"
-            "📖 Modules 9 à 15 : Analyse avancée\n"
-            "📖 Modules 16 à 20 : Plan professionnel\n"
-            "📖 Modules 21 à 25 : Niveau avancé",
-            reply_markup=clavier_guide
+            "✅ Parfait.\n\n"
+            "Envoyez maintenant votre capture de paiement.\n\n"
+            "Votre paiement sera vérifié par notre équipe avant l'envoi du Guide Complet ProfitBook 📖"
         )
 
+
+    # ==========================
     # CANAL TELEGRAM
+    # ==========================
+
     elif query.data == "canal_telegram":
 
         clavier = InlineKeyboardMarkup([
@@ -220,18 +274,20 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]
         ])
 
+
         await query.message.reply_text(
             "📈 Rejoignez notre canal Telegram pour recevoir :\n\n"
             "✅ Des analyses du marché\n"
             "✅ Des cours de trading\n"
             "✅ Des vidéos éducatives\n"
-            "✅ Des prises de position\n"
-            "✅ Des conseils réguliers\n\n"
+            "✅ Des prises de position\n\n"
             "Cliquez sur le bouton ci-dessous.",
             reply_markup=clavier
         )
-
+            # ==========================
     # POURQUOI CHOISIR LA FORMATION
+    # ==========================
+
     elif query.data == "pourquoi_formation":
 
         await query.message.reply_text(
@@ -241,7 +297,11 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=clavier_guide
         )
 
+
+    # ==========================
     # PAIEMENT SÉCURISÉ
+    # ==========================
+
     elif query.data == "paiement_securise":
 
         await query.message.reply_text(
@@ -252,7 +312,11 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=clavier_guide
         )
 
+
+    # ==========================
     # ASSISTANCE
+    # ==========================
+
     elif query.data == "assistance":
 
         clavier = InlineKeyboardMarkup([
@@ -264,16 +328,25 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]
         ])
 
+
         await query.message.reply_text(
             "💬 Contactez notre assistance.",
             reply_markup=clavier
         )
+
+
+    # ==========================
     # VALIDATION ADMIN
+    # ==========================
+
     elif query.data.startswith("valider_"):
 
-        user_id = int(query.data.split("_")[1])
+        user_id = int(
+            query.data.split("_")[1]
+        )
 
-        with open("guide-complet.pdf", "rb") as pdf:
+
+        with open("Guide complet.pdf", "rb") as pdf:
 
             await context.bot.send_document(
                 chat_id=user_id,
@@ -284,9 +357,36 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 )
             )
 
+
         await query.message.reply_text(
             "✅ Guide envoyé au client."
         )
+
+
+    # ==========================
+    # REFUS ADMIN
+    # ==========================
+
+    elif query.data.startswith("refuser_"):
+
+        user_id = int(
+            query.data.split("_")[1]
+        )
+
+
+        await context.bot.send_message(
+            chat_id=user_id,
+            text=(
+                "❌ Votre preuve de paiement n'a pas été validée.\n\n"
+                "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
+            )
+        )
+
+
+        await query.message.reply_text(
+            "❌ Paiement refusé au client."
+        )
+
 
 
 # ==========================
@@ -297,6 +397,7 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user_id = update.message.from_user.id
 
+
     if user_id not in utilisateurs_en_attente:
 
         await update.message.reply_text(
@@ -304,7 +405,10 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
+
+
     photo = update.message.photo[-1]
+
 
     clavier = InlineKeyboardMarkup([
         [
@@ -312,8 +416,16 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "✅ Valider et envoyer le guide",
                 callback_data=f"valider_{user_id}"
             )
+        ],
+        [
+            InlineKeyboardButton(
+                "❌ Non valide",
+                callback_data=f"refuser_{user_id}"
+            )
         ]
     ])
+
+
 
     await context.bot.send_photo(
         chat_id=ADMIN_ID,
@@ -326,12 +438,17 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=clavier
     )
 
+
+
     await update.message.reply_text(
         "✅ Capture reçue.\n\n"
-        "Votre paiement sera vérifié."
+        "Votre paiement sera vérifié par l'administration."
     )
 
+
+
     utilisateurs_en_attente.remove(user_id)
+
 
 
 # ==========================
@@ -341,8 +458,10 @@ async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
-        "🎓 Formation ProfitBook\n\n25 modules de trading."
+        "🎓 Formation ProfitBook\n\n"
+        "25 modules de trading."
     )
+
 
 
 # ==========================
@@ -351,12 +470,20 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
 
-    Thread(target=run_web, daemon=True).start()
+    Thread(
+        target=run_web,
+        daemon=True
+    ).start()
+
 
     from telegram.request import HTTPXRequest
     import logging
 
-    logging.basicConfig(level=logging.INFO)
+
+    logging.basicConfig(
+        level=logging.INFO
+    )
+
 
     request = HTTPXRequest(
         connect_timeout=30,
@@ -365,6 +492,7 @@ def main():
         pool_timeout=30,
     )
 
+
     application = (
         Application.builder()
         .token(TOKEN)
@@ -372,19 +500,49 @@ def main():
         .build()
     )
 
+
+
     async def error_handler(update, context):
-        logging.exception("Erreur :", exc_info=context.error)
 
-    application.add_error_handler(error_handler)
+        logging.exception(
+            "Erreur :",
+            exc_info=context.error
+        )
 
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("formation", formation))
-    application.add_handler(CallbackQueryHandler(boutons))
-    application.add_handler(
-        MessageHandler(filters.PHOTO, recevoir_paiement)
+
+
+    application.add_error_handler(
+        error_handler
     )
 
+
+    application.add_handler(
+        CommandHandler("start", start)
+    )
+
+
+    application.add_handler(
+        CommandHandler("formation", formation)
+    )
+
+
+    application.add_handler(
+        CallbackQueryHandler(boutons)
+    )
+
+
+    application.add_handler(
+        MessageHandler(
+            filters.PHOTO,
+            recevoir_paiement
+        )
+    )
+
+
+
     print("✅ ProfitBook Bot lancé")
+
+
 
     application.run_polling(
         poll_interval=1,
@@ -394,7 +552,9 @@ def main():
     )
 
 
+
 if __name__ == "__main__":
+
     print("🚀 Démarrage du bot...")
+
     main()
-            
