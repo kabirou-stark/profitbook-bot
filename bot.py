@@ -332,61 +332,57 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "💬 Contactez notre assistance.",
             reply_markup=clavier
         )
+# ==========================
+# VALIDATION ADMIN
+# ==========================
 
+elif query.data.startswith("valider_"):
 
-    # ==========================
-    # VALIDATION ADMIN
-    # ==========================
+    user_id = int(
+        query.data.split("_")[1]
+    )
 
-    elif query.data.startswith("valider_"):
+    with open("Guide complet.pdf", "rb") as pdf:
 
-        user_id = int(
-            query.data.split("_")[1]
-        )
-
-
-        with open("Guide complet.pdf", "rb") as pdf:
-
-            await context.bot.send_document(
-                chat_id=user_id,
-                document=pdf,
-                caption=(
-                    "🎓 Merci pour votre confiance.\n\n"
-                    "Voici votre Guide Complet ProfitBook 📖"
-                )
-            )
-
-
-        await query.message.reply_text(
-            "✅ Guide envoyé au client."
-        )
-utilisateurs_en_attente.discard(user_id)
-
-    # ==========================
-    # REFUS ADMIN
-    # ==========================
-
-    elif query.data.startswith("refuser_"):
-
-        user_id = int(
-            query.data.split("_")[1]
-        )
-
-
-        await context.bot.send_message(
+        await context.bot.send_document(
             chat_id=user_id,
-            text=(
-                "❌ Votre preuve de paiement n'a pas été validée.\n\n"
-                "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
+            document=pdf,
+            caption=(
+                "🎓 Merci pour votre confiance.\n\n"
+                "Voici votre Guide Complet ProfitBook 📖"
             )
         )
 
+    await query.message.reply_text(
+        "✅ Guide envoyé au client."
+    )
 
-        await query.message.reply_text(
-            "❌ Paiement refusé au client."
+    utilisateurs_en_attente.discard(user_id)
+
+
+# ==========================
+# REFUS ADMIN
+# ==========================
+
+elif query.data.startswith("refuser_"):
+
+    user_id = int(
+        query.data.split("_")[1]
+    )
+
+    await context.bot.send_message(
+        chat_id=user_id,
+        text=(
+            "❌ Votre preuve de paiement n'a pas été validée.\n\n"
+            "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
         )
+    )
 
-utilisateurs_en_attente.discard(user_id)
+    await query.message.reply_text(
+        "❌ Paiement refusé au client."
+    )
+
+    utilisateurs_en_attente.discard(user_id)
 
 # ==========================
 # RECEPTION CAPTURE PAIEMENT
