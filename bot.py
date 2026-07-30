@@ -159,7 +159,15 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "25 modules de trading."
     )
 
+async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
+    query = update.callback_query
+    await query.answer()
+
+    if query.data == "formation":
+        await query.message.reply_text(
+            "🎓 Formation ProfitBook\n\n25 modules de trading."
+        )
 # ==========================
 # MAIN
 # ==========================
