@@ -535,12 +535,18 @@ def main():
     print("✅ ProfitBook Bot lancé")
 
 
-    application.run_polling(
-        poll_interval=1,
-        timeout=60,
-        drop_pending_updates=True,
-        close_loop=False,
-    )
+    while True:
+    try:
+        application.run_polling(
+            poll_interval=1,
+            timeout=60,
+            drop_pending_updates=True,
+            close_loop=False,
+        )
+    except Exception as e:
+        logging.error(f"Bot arrêté : {e}")
+        import time
+        time.sleep(5)
 
 
 
