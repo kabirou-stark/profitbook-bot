@@ -1,4 +1,5 @@
 import os
+import json
 from threading import Thread
 
 from flask import Flask
@@ -23,26 +24,37 @@ if not TOKEN:
     raise ValueError("La variable d'environnement TOKEN est introuvable.")
 
 
-ADMIN_ID = 5269002026
+ADMIN_ID = 526900202
+
+
+# ==========================
+# COMPTEUR UTILISATEURS
+# ==========================
+
+USERS_FILE = "users.json"
+
+
+try:
+    with open(USERS_FILE, "r") as f:
+        utilisateurs = set(json.load(f))
+
+except:
+    utilisateurs = set()
+
+
+
+def sauvegarder_utilisateurs():
+
+    with open(USERS_FILE, "w") as f:
+        json.dump(list(utilisateurs), f)
+
+
+
+# ==========================
+# VARIABLES PAIEMENTS
+# ==========================
 
 utilisateurs_en_attente = set()
-
-
-# ==========================
-# FLASK RENDER
-# ==========================
-
-web = Flask(__name__)
-
-
-@web.route("/")
-def home():
-    return "ProfitBook Bot est en ligne !"
-
-
-def run_web():
-    port = int(os.environ.get("PORT", 10000))
-    web.run(host="0.0.0.0", port=port)
 
 
 
@@ -51,6 +63,19 @@ def run_web():
 # ==========================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    user_id = update.effective_user.id
+
+
+    # ENREGISTRE L'UTILISATEUR
+
+    if user_id not in utilisateurs:
+
+        utilisateurs.add(user_id)
+
+        sauvegarder_utilisateurs()
+
+
 
     message = """
 📖📖🚀 Bienvenue sur L’Académie du Trading
@@ -107,344 +132,19 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
             caption=message,
             reply_markup=clavier
         )
-
-
-
-# ==========================
-# BOUTONS
+        # ==========================
+# STATISTIQUES UTILISATEURS
 # ==========================
 
-async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    query = update.callback_query
-
-    await query.answer()
-
-
-    clavier_guide = InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton(
-                "🎓 Obtenir le Guide Complet",
-                callback_data="guide_complet"
-            )
-        ]
-    ])
-
-
-    # GUIDE GRATUIT
-
-    if query.data == "guide_gratuit":
-
-        with open("Guide gratuit pdf .pdf", "rb") as pdf:
-
-            await query.message.reply_document(
-                document=pdf,
-                caption="📖 Voici ton guide gratuit.",
-                reply_markup=clavier_guide
-            )
-
-
-
-    # GUIDE COMPLET
-
-    elif query.data == "guide_complet":
-
-        clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "✅ J'ai effectué le paiement",
-                    callback_data="paiement_effectue"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "📚 Voir le programme des 12 modules",
-                    callback_data="programme_12"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "🔒 Paiement sécurisé",
-                    callback_data="paiement_securise"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "📢 Rejoindre notre canal Telegram",
-                    callback_data="canal_telegram"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    "💬 Assistance",
-                    callback_data="assistance"
-                )
-            ]
-        ])
-
-
-        await query.message.reply_text(
-            "🎓 *GUIDE COMPLET PROFITBOOK*\n\n"
-            "💰 Prix : 15 USDT\n\n"
-            "🟢 USDT (BEP20)\n"
-            "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
-            "🟡 Bitcoin (BTC)\n"
-            "`13V7bNc1TgwRAEc7b3h9xZUMdWaGBJ23u2`\n\n"
-            "🔵 Ethereum (ETH)\n"
-            "`0x71da433a66bb583dc984b1888bea773c7fbc7764`\n\n"
-            "Après paiement, clique sur le bouton ci-dessous puis envoie la capture.",
-            parse_mode="Markdown",
-            reply_markup=clavier
-        )
-
-
-
-    # ==========================
-    # PROGRAMME 12 MODULES
-    # ==========================
-
-    elif query.data == "programme_12":
-
-        clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "🎓 Obtenir le Guide Complet",
-                    callback_data="guide_complet"
-                )
-            ]
-        ])
-
-
-        with open("programme-12-modules.PNG", "rb") as photo:
-
-            await query.message.reply_photo(
-                photo=photo,
-                caption=(
-                    "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
-                    "✨ Cette formation premium est répartie sur 126 pages soigneusement élaborées.\n\n"
-                    "📖 Module 1 : Bases du trading\n"
-                    "🕯️ Module 2 : Chandeliers japonais\n"
-                    "📈 Module 3 : Figures de retournement\n"
-                    "📊 Module 4 : Figures de continuation\n"
-                    "📍 Module 5 : Supports & Résistances\n"
-                    "📉 Module 6 : Tendances & Timeframes\n"
-                    "💹 Module 7 : Price Action\n"
-                    "🎯 Module 8 : Stratégies de trading\n"
-                    "⚡ Module 9 : Confluences & Fibonacci\n"
-                    "📝 Module 10 : Plan de trading\n"
-                    "🛡️ Module 11 : Gestion du risque & Psychologie\n"
-                    "🚀 Module 12 : Cas pratiques & Progression"
-                ),
-                parse_mode="Markdown",
-                reply_markup=clavier
-            )
-    # ==========================
-    # PAIEMENT EFFECTUÉ
-    # ==========================
-
-    elif query.data == "paiement_effectue":
-
-        utilisateurs_en_attente.add(
-            query.from_user.id
-        )
-
-        await query.message.reply_text(
-            "✅ Parfait.\n\n"
-            "Envoyez maintenant votre capture de paiement.\n\n"
-            "Votre paiement sera vérifié par notre équipe avant l'envoi du Guide Complet ProfitBook 📖"
-        )
-
-
-
-    # ==========================
-    # CANAL TELEGRAM
-    # ==========================
-
-    elif query.data == "canal_telegram":
-
-        clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "📢 Rejoindre le canal",
-                    url="https://t.me/academie_trading_pro"
-                )
-            ]
-        ])
-
-        await query.message.reply_text(
-            "📈 Rejoignez notre canal Telegram pour recevoir :\n\n"
-            "✅ Des analyses du marché\n"
-            "✅ Des cours de trading\n"
-            "✅ Des vidéos éducatives\n"
-            "✅ Des prises de position\n\n"
-            "Cliquez sur le bouton ci-dessous.",
-            reply_markup=clavier
-        )
-
-
-
-    # ==========================
-    # POURQUOI CHOISIR LA FORMATION
-    # ==========================
-
-    elif query.data == "pourquoi_formation":
-
-        await query.message.reply_text(
-            "⭐ Pourquoi choisir L’Académie du Trading ?\n\n"
-            "Une méthode structurée pour comprendre les marchés, "
-            "développer la discipline et progresser étape par étape.",
-            reply_markup=clavier_guide
-        )
-
-
-
-    # ==========================
-    # PAIEMENT SÉCURISÉ
-    # ==========================
-
-    elif query.data == "paiement_securise":
-
-        await query.message.reply_text(
-            "🔒 PAIEMENT SÉCURISÉ\n\n"
-            "✅ Les paiements sont vérifiés avant la livraison.\n"
-            "✅ Vos informations restent confidentielles.\n"
-            "✅ Assistance disponible en cas de besoin.",
-            reply_markup=clavier_guide
-        )
-
-
-
-    # ==========================
-    # ASSISTANCE
-    # ==========================
-
-    elif query.data == "assistance":
-
-        clavier = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(
-                    "💬 Contacter l'assistance",
-                    url="https://t.me/bi_kakk"
-                )
-            ]
-        ])
-
-        await query.message.reply_text(
-            "💬 Contactez notre assistance.",
-            reply_markup=clavier
-        )
-
-
-
-    # ==========================
-    # VALIDATION ADMIN
-    # ==========================
-
-    elif query.data.startswith("valider_"):
-
-        user_id = int(query.data.split("_")[1])
-
-        with open("Guide complet.pdf", "rb") as pdf:
-
-            await context.bot.send_document(
-                chat_id=user_id,
-                document=pdf,
-                caption=(
-                    "🎓 Merci pour votre confiance.\n\n"
-                    "Voici votre Guide Complet ProfitBook 📖"
-                )
-            )
-
-        await query.message.reply_text(
-            "✅ Guide envoyé au client."
-        )
-
-        utilisateurs_en_attente.discard(user_id)
-
-
-
-    # ==========================
-    # REFUS ADMIN
-    # ==========================
-
-    elif query.data.startswith("refuser_"):
-
-        user_id = int(query.data.split("_")[1])
-
-        await context.bot.send_message(
-            chat_id=user_id,
-            text=(
-                "❌ Votre preuve de paiement n'a pas été validée.\n\n"
-                "Veuillez vérifier votre capture et envoyer une nouvelle preuve."
-            )
-        )
-
-        await query.message.reply_text(
-            "❌ Paiement refusé au client."
-        )
-
-        utilisateurs_en_attente.discard(user_id)
-
-
-
-
-
-# ==========================
-# RECEPTION CAPTURE PAIEMENT
-# ==========================
-
-async def recevoir_paiement(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    user_id = update.message.from_user.id
-
-
-    if user_id not in utilisateurs_en_attente:
-
-        await update.message.reply_text(
-            "⚠️ Cliquez d'abord sur ✅ J'ai effectué le paiement."
-        )
+    if update.effective_user.id != ADMIN_ID:
         return
 
 
-
-    photo = update.message.photo[-1]
-
-
-    clavier = InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton(
-                "✅ Valider et envoyer le guide",
-                callback_data=f"valider_{user_id}"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "❌ Non valide",
-                callback_data=f"refuser_{user_id}"
-            )
-        ]
-    ])
-
-
-
-    await context.bot.send_photo(
-        chat_id=ADMIN_ID,
-        photo=photo.file_id,
-        caption=(
-            "📩 Nouvelle preuve de paiement\n\n"
-            f"👤 Nom : {update.message.from_user.first_name}\n"
-            f"🆔 ID : {user_id}"
-        ),
-        reply_markup=clavier
-    )
-
-
     await update.message.reply_text(
-        "✅ Capture reçue.\n\n"
-        "Votre paiement sera vérifié par l'administration."
+        f"👥 Nombre total d'utilisateurs : {len(utilisateurs)}"
     )
-
-
 
 
 
@@ -458,6 +158,9 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎓 Formation ProfitBook\n\n"
         "25 modules de trading."
     )
+
+
+
 # ==========================
 # MAIN
 # ==========================
@@ -496,6 +199,7 @@ def main():
     )
 
 
+
     async def error_handler(update, context):
 
         logging.error(
@@ -504,9 +208,11 @@ def main():
         )
 
 
+
     application.add_error_handler(
         error_handler
     )
+
 
 
     application.add_handler(
@@ -517,6 +223,14 @@ def main():
     application.add_handler(
         CommandHandler("formation", formation)
     )
+
+
+    # COMMANDE POUR VOIR LE NOMBRE D'UTILISATEURS
+
+    application.add_handler(
+        CommandHandler("stats", stats)
+    )
+
 
 
     application.add_handler(
@@ -532,23 +246,31 @@ def main():
     )
 
 
+
     print("✅ ProfitBook Bot lancé")
 
 
+
     while True:
+
         try:
+
             application.run_polling(
                 poll_interval=1,
                 timeout=60,
                 drop_pending_updates=True
             )
 
+
         except Exception as e:
+
             logging.error(
                 f"Bot arrêté : {e}"
             )
 
+
             time.sleep(10)
+
 
 
 
