@@ -72,8 +72,8 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
         ],
         [
             InlineKeyboardButton(
-                "📚 Voir le programme des 25 modules",
-                callback_data="programme_25"
+                "📚 Voir le programme des 12 modules",
+                callback_data="programme_12"
             )
         ],
         [
@@ -98,11 +98,6 @@ Ton compagnon d’apprentissage pour découvrir le trading et développer tes co
             parse_mode="Markdown"
         )
 
-# ==========================
-# VARIABLES
-# ==========================
-
-utilisateurs_en_attente = set()
 
 
 # ==========================
@@ -131,7 +126,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data == "guide_gratuit":
 
-        with open("guide-gratuit.pdf.pdf", "rb") as pdf:
+        with open("guide gratuit.pdf", "rb") as pdf:
 
             await query.message.reply_document(
                 document=pdf,
@@ -274,7 +269,6 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ]
         ])
 
-
         await query.message.reply_text(
             "📈 Rejoignez notre canal Telegram pour recevoir :\n\n"
             "✅ Des analyses du marché\n"
@@ -284,9 +278,14 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Cliquez sur le bouton ci-dessous.",
             reply_markup=clavier
         )
-            # ==========================
+
+
+    # ==========================
     # POURQUOI CHOISIR LA FORMATION
     # ==========================
+        
+
+  
 
     elif query.data == "pourquoi_formation":
 
@@ -361,7 +360,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(
             "✅ Guide envoyé au client."
         )
-
+utilisateurs_en_attente.discard(user_id)
 
     # ==========================
     # REFUS ADMIN
@@ -387,7 +386,7 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "❌ Paiement refusé au client."
         )
 
-
+utilisateurs_en_attente.discard(user_id)
 
 # ==========================
 # RECEPTION CAPTURE PAIEMENT
