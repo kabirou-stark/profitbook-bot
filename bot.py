@@ -205,14 +205,13 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         with open("programme-12-modules.PNG", "rb") as photo:
 
-            await query.message.reply_photo(
-                photo=photo
-            )
-
-
-        await query.message.reply_text(
+    await query.message.reply_photo(
+        photo=photo,
+        caption=(
             "📚 *PROGRAMME DE LA FORMATION (12 MODULES)*\n\n"
-            "✨ Formation premium répartie sur 126 pages.\n\n"
+
+            "✨ Cette formation premium est répartie sur 126 pages soigneusement élaborées.\n\n"
+
             "📖 Module 1 : Bases du trading\n"
             "🕯️ Module 2 : Chandeliers japonais\n"
             "📈 Module 3 : Figures de retournement\n"
@@ -224,11 +223,12 @@ async def boutons(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "⚡ Module 9 : Confluences & Fibonacci\n"
             "📝 Module 10 : Plan de trading\n"
             "🛡️ Module 11 : Gestion du risque & Psychologie\n"
-            "🚀 Module 12 : Cas pratiques & Progression",
-            parse_mode="Markdown",
-            reply_markup=clavier_guide
-        )
-            # ==========================
+            "🚀 Module 12 : Cas pratiques & Progression"
+        ),
+        parse_mode="Markdown",
+        reply_markup=clavier_guide
+    )
+    # ==========================
     # PAIEMENT EFFECTUÉ
     # ==========================
 
