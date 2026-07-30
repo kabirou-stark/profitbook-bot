@@ -160,7 +160,6 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-
 # ==========================
 # MAIN
 # ==========================
@@ -172,16 +171,12 @@ def main():
         daemon=True
     ).start()
 
-
     from telegram.request import HTTPXRequest
     import logging
-    import time
-
 
     logging.basicConfig(
         level=logging.INFO
     )
-
 
     request = HTTPXRequest(
         connect_timeout=60,
@@ -199,7 +194,6 @@ def main():
     )
 
 
-
     async def error_handler(update, context):
 
         logging.error(
@@ -208,29 +202,22 @@ def main():
         )
 
 
-
     application.add_error_handler(
         error_handler
     )
-
 
 
     application.add_handler(
         CommandHandler("start", start)
     )
 
-
     application.add_handler(
         CommandHandler("formation", formation)
     )
 
-
-    # COMMANDE POUR VOIR LE NOMBRE D'UTILISATEURS
-
     application.add_handler(
         CommandHandler("stats", stats)
     )
-
 
 
     application.add_handler(
@@ -246,31 +233,14 @@ def main():
     )
 
 
-
     print("✅ ProfitBook Bot lancé")
 
 
-
-    while True:
-
-        try:
-
-            application.run_polling(
-                poll_interval=1,
-                timeout=60,
-                drop_pending_updates=True
-            )
-
-
-        except Exception as e:
-
-            logging.error(
-                f"Bot arrêté : {e}"
-            )
-
-
-            time.sleep(10)
-
+    application.run_polling(
+        poll_interval=1,
+        timeout=60,
+        drop_pending_updates=True
+    )
 
 
 
