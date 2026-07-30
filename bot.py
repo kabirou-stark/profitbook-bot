@@ -163,7 +163,24 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ==========================
 # MAIN
 # ==========================
+from flask import Flask
+from threading import Thread
 
+app = Flask(__name__)
+
+
+@app.route("/")
+def home():
+    return "ProfitBook Bot is running"
+
+
+import os
+
+def run_web():
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8080))
+    )
 def main():
 
     Thread(
