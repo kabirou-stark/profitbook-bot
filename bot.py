@@ -459,10 +459,6 @@ async def formation(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "25 modules de trading."
     )
 
-
-
-
-
 # ==========================
 # MAIN
 # ==========================
@@ -485,10 +481,10 @@ def main():
 
 
     request = HTTPXRequest(
-        connect_timeout=30,
-        read_timeout=60,
-        write_timeout=60,
-        pool_timeout=30,
+        connect_timeout=60,
+        read_timeout=120,
+        write_timeout=120,
+        pool_timeout=60,
     )
 
 
@@ -500,14 +496,12 @@ def main():
     )
 
 
-
     async def error_handler(update, context):
 
-        logging.exception(
-            "Erreur :",
+        logging.error(
+            "Erreur dans le bot :",
             exc_info=context.error
         )
-
 
 
     application.add_error_handler(
@@ -538,19 +532,15 @@ def main():
     )
 
 
-
     print("✅ ProfitBook Bot lancé")
-
 
 
     application.run_polling(
         poll_interval=1,
-        timeout=20,
+        timeout=60,
         drop_pending_updates=True,
         close_loop=False,
     )
-
-
 
 
 
@@ -559,3 +549,6 @@ if __name__ == "__main__":
     print("🚀 Démarrage du bot...")
 
     main()
+
+
+
